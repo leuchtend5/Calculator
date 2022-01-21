@@ -48,7 +48,7 @@ function updateCurrentDisplay(){
   } else if(currentScreen.textContent.length == 12){
     return currentScreen.textContent;
   } else{
-   currentScreen.textContent += userInputValue;
+    currentScreen.textContent += userInputValue;
   }
 }
 
@@ -57,12 +57,14 @@ function clear(){
   historyScreen.textContent = "";  
 }
 
-// function historyDisplay(){
-//   historyScreen.textContent = currentScreen.textContent;
-// }
+function deleteNumber(){
+  let newNumber = currentScreen.textContent.slice(0, -1);
+  currentScreen.textContent = newNumber;
+}
 
 clearBtn.addEventListener('click', clear);
 window.addEventListener('load', () => {
   userInput();
   operatorInput();
 });
+deleteBtn.addEventListener('click', deleteNumber);
