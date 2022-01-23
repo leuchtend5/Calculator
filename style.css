@@ -22,6 +22,16 @@ body {
 
 .screen {
   width: 400px;
-  height: 80px;
+  height: 82px;
+  border: 1px solid black;
+}
+
+.current {
+  height: 40px;
+  border: 1px solid black;
+}
+
+.history {
+  height: 40px;
   border: 1px solid black;
 }

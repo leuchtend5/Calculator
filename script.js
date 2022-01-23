@@ -8,37 +8,55 @@ const historyScreen = document.getElementById('history');
 const currentScreen = document.getElementById('current');
 
 let userInputValue = "";
+let arrayNumber = [];
+let total = 0;
 
-function userInput(){
-  // for button input
-  numberBtn.forEach(button => {
-    button.addEventListener('click', function(){
-      if(button.textContent <= 9){
-       userInputValue = button.textContent;
-      }
-      updateCurrentDisplay();
-    });
-  })
+// function userInput(){
+//   // for number button input
+//   numberBtn.forEach(button => {
+//     button.addEventListener('click', function(){
+//       if(button.textContent <= 9){
+//         userInputValue = button.textContent;
+//       }
+//       updateCurrentDisplay(); // for updateting the currentScreen
+//     });
+//   })
+// 
+//   operatorBtn.forEach(button => {
+//     button.addEventListener('click', function(){
+//       if(button.textContent == "+"){
+//         historyScreen.textContent = currentScreen.textContent + button.textContent;
+//         let stringToNumber = parseInt(currentScreen.textContent); // convert the string to number
+//         arrayNumber.push(stringToNumber) // add the number into the array
+//       }
+//     })
+//   })
+// 
+//   // for keyboard input (number and delete button)
+//   window.addEventListener('keydown', (e) => {
+//     if(e.key <= 9){
+//       userInputValue = e.key;
+//       updateCurrentDisplay();
+//     } else if(e.key == 'Backspace'){
+//       let finalNumber = currentScreen.textContent.slice(0, -1); // delete from keyboard input
+//       currentScreen.textContent = finalNumber;
+//     }
+//   })
+// }
 
-  // for keyboard input
-  window.addEventListener('keydown', (e) => {
-    if(e.key <= 9){
-      userInputValue = e.key;
-    } else{
-      return userInputValue;
-    }
+function userInputClick(e){
+  if(e.target.textContent <= 9){
+    userInputValue = e.target.textContent;
     updateCurrentDisplay();
-  })
+  } else if(e.target.textContent == "+"){
+    historyScreen.textContent = currentScreen.textContent + e.target.textContent;
+    let stringToNumber = parseInt(currentScreen.textContent); // convert the string to number
+    arrayNumber.push(stringToNumber) // add the number into the array
+  }
 }
 
-function operatorInput(){
-  operatorBtn.forEach(button => {
-    button.addEventListener('click', function(e){
-      if(button.textContent == "+"){
-        historyScreen.textContent = currentScreen.textContent;
-      }
-    })
-  })
+function userInputKeyboard(e){
+
 }
 
 function updateCurrentDisplay(){
@@ -63,8 +81,6 @@ function deleteNumber(){
 }
 
 clearBtn.addEventListener('click', clear);
-window.addEventListener('load', () => {
-  userInput();
-  operatorInput();
-});
 deleteBtn.addEventListener('click', deleteNumber);
+window.addEventListener('click', userInputClick);
+window.addEventListener('keydown', userInputKeyboard);
