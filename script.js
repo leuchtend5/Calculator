@@ -7,80 +7,98 @@ const operatorBtn = document.querySelectorAll('.operator');
 const historyScreen = document.getElementById('history');
 const currentScreen = document.getElementById('current');
 
-let userInputValue = "";
-let arrayNumber = [];
-let total = 0;
+let currentOperation = null;
+let firstNumber = "";
+let secondNumber = "";
+let resetScreen = false;
 
-// function userInput(){
-//   // for number button input
-//   numberBtn.forEach(button => {
-//     button.addEventListener('click', function(){
-//       if(button.textContent <= 9){
-//         userInputValue = button.textContent;
-//       }
-//       updateCurrentDisplay(); // for updateting the currentScreen
-//     });
-//   })
-// 
-//   operatorBtn.forEach(button => {
-//     button.addEventListener('click', function(){
-//       if(button.textContent == "+"){
-//         historyScreen.textContent = currentScreen.textContent + button.textContent;
-//         let stringToNumber = parseInt(currentScreen.textContent); // convert the string to number
-//         arrayNumber.push(stringToNumber) // add the number into the array
-//       }
-//     })
-//   })
-// 
-//   // for keyboard input (number and delete button)
-//   window.addEventListener('keydown', (e) => {
-//     if(e.key <= 9){
-//       userInputValue = e.key;
-//       updateCurrentDisplay();
-//     } else if(e.key == 'Backspace'){
-//       let finalNumber = currentScreen.textContent.slice(0, -1); // delete from keyboard input
-//       currentScreen.textContent = finalNumber;
-//     }
-//   })
-// }
-
-function userInputClick(e){
-  if(e.target.textContent <= 9){
-    userInputValue = e.target.textContent;
-    updateCurrentDisplay();
-  } else if(e.target.textContent == "+"){
-    historyScreen.textContent = currentScreen.textContent + e.target.textContent;
-    let stringToNumber = parseInt(currentScreen.textContent); // convert the string to number
-    arrayNumber.push(stringToNumber) // add the number into the array
+clearBtn.addEventListener('click', clearNumber);
+deleteBtn.addEventListener('click', deleteNumber);
+equalBtn.addEventListener('click', () => {
+  if(currentOperation == null){
+    return;
   }
-}
+  execute(equalBtn.textContent);
+})
 
-function userInputKeyboard(e){
+numberBtn.forEach((button) => {
+  button.addEventListener('click', () => addNumber(button.textContent));
+})
 
-}
+operatorBtn.forEach((button) => {
+  button.addEventListener('click', () => setOperation(button.textContent));
+})
 
-function updateCurrentDisplay(){
-  if(currentScreen.textContent == "0"){
+function addNumber(number){
+  if(currentScreen.textContent === "0"){
     currentScreen.textContent = "";
-    currentScreen.textContent += userInputValue;
-  } else if(currentScreen.textContent.length == 12){
-    return currentScreen.textContent;
+  } else if(resetScreen){
+    currentScreen.textContent = "";
+    resetScreen = false;
+  }
+  currentScreen.textContent += number;
+}
+
+function setOperation(operator){
+  if(currentOperation !== null){
+    execute(operator);
+  } else if(currentOperation === null){
+    firstNumber = currentScreen.textContent;
+    currentOperation = operator;
+    historyScreen.textContent = `${firstNumber} ${currentOperation}`
+    resetScreen = true;
   } else{
-    currentScreen.textContent += userInputValue;
+    return;
   }
 }
 
-function clear(){
+function execute(operator){
+  secondNumber = currentScreen.textContent;
+  if(operator == "="){
+    currentScreen.textContent = operate(currentOperation, firstNumber, secondNumber);
+    historyScreen.textContent = `${firstNumber} ${currentOperation} ${secondNumber} =`;
+  } else{
+    currentScreen.textContent = operate(operator, firstNumber, secondNumber);
+    historyScreen.textContent = `${currentScreen.textContent} ${operator}`;
+  }
+  currentOperation = null;
+  firstNumber = currentScreen.textContent;
+  secondNumber = "";
+  resetScreen = true;
+}
+
+function operate(operator, a, b){
+  let computation;
+  let previous = parseFloat(a);
+  let current = parseFloat(b);
+  switch(operator){
+    case "+":
+      computation = previous + current;
+      break;
+    case "-":
+      computation = previous - current;
+      break;
+    case "*":
+      computation = previous * current;
+      break;
+    case "÷":
+      computation = previous / current;
+      break;
+    default:        
+      return;
+  }
+  return computation;
+}
+
+function clearNumber(){
   currentScreen.textContent = "0";
-  historyScreen.textContent = "";  
+  historyScreen.textContent = "";
+  currentOperation = null;
+  firstNumber = "";
+  secondNumber = "";
 }
 
 function deleteNumber(){
-  let newNumber = currentScreen.textContent.slice(0, -1);
-  currentScreen.textContent = newNumber;
+  currentScreen.textContent = currentScreen.textContent.slice(0, -1);
 }
 
-clearBtn.addEventListener('click', clear);
-deleteBtn.addEventListener('click', deleteNumber);
-window.addEventListener('click', userInputClick);
-window.addEventListener('keydown', userInputKeyboard);
