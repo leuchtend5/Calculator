@@ -46,7 +46,7 @@ function setOperation(operator){
     firstNumber = currentScreen.textContent;
     currentOperation = operator;
     historyScreen.textContent = `${firstNumber} ${currentOperation}`
-    resetScreen = true;
+    resetScreen = true; // for the screen to reset when enter the number
   } else{
     return;
   }
@@ -57,14 +57,18 @@ function execute(operator){
   if(operator == "="){
     currentScreen.textContent = operate(currentOperation, firstNumber, secondNumber);
     historyScreen.textContent = `${firstNumber} ${currentOperation} ${secondNumber} =`;
+    currentOperation = null;
+    firstNumber = currentScreen.textContent;
+    secondNumber = "";
+    resetScreen = true;
   } else{
     currentScreen.textContent = operate(operator, firstNumber, secondNumber);
     historyScreen.textContent = `${currentScreen.textContent} ${operator}`;
+    firstNumber = currentScreen.textContent;
+    secondNumber = "";
+    resetScreen = true;
   }
-  currentOperation = null;
-  firstNumber = currentScreen.textContent;
-  secondNumber = "";
-  resetScreen = true;
+  
 }
 
 function operate(operator, a, b){
