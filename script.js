@@ -60,8 +60,12 @@ function execute(operator){
     currentOperation = null;
     firstNumber = currentScreen.textContent;
     secondNumber = "";
-    resetScreen = true;
-  } else{
+  } // else if(operator == "+" || operator == "-" || operator == "÷" || operator == "*"){
+    // currentOperation = operator;
+    // historyScreen.textContent = `${firstNumber} ${currentOperation}`;
+    // resetScreen = true;
+  // } 
+  else{
     currentScreen.textContent = operate(operator, firstNumber, secondNumber);
     historyScreen.textContent = `${currentScreen.textContent} ${operator}`;
     firstNumber = currentScreen.textContent;
@@ -82,7 +86,7 @@ function operate(operator, a, b){
     case "-":
       computation = previous - current;
       break;
-    case "*":
+    case "x":
       computation = previous * current;
       break;
     case "÷":
