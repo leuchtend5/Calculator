@@ -1,49 +1,55 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <link rel="shortcut icon" href="#">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://kit.fontawesome.com/334f53df79.js" crossorigin="anonymous"></script>
-  <script src="script.js" defer></script>
-  <title>Calculator</title>
-</head>
-<body>
-  <div class="main">
-    <div class="container">
-      <div class="screen">
-        <div id="history" class="history"></div>
-        <div id="current" class="current">0</div>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/334f53df79.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js" defer></script>
+    <title>Calculator</title>
+  </head>
+  <body>
+    <div class="main">
+      <div class="container">
+        <div class="screen">
+          <div id="history" class="history"></div>
+          <div id="current" class="current">0</div>
+        </div>
+        <div class="all-buttons">
+          <button id="clear" class="clear">Clear</button>
+          <button id="delete" class="delete">Delete</button>
+          <button class="btn number">7</button>
+          <button class="btn number">8</button>
+          <button class="btn number">9</button>
+          <button class="btn operator">÷</button>
+          <button class="btn number">4</button>
+          <button class="btn number">5</button>
+          <button class="btn number">6</button>
+          <button class="btn operator">x</button>
+          <button class="btn number">1</button>
+          <button class="btn number">2</button>
+          <button class="btn number">3</button>
+          <button class="btn operator">-</button>
+          <button id="point" class="btn">.</button>
+          <button class="btn number">0</button>
+          <button id="equal" class="btn">=</button>
+          <button class="btn operator">+</button>
+        </div>
       </div>
-      <div class="all-buttons">
-        <button id="clear" class="clear">clear</button>
-        <button id="delete" class="delete">delete</button>
-        <button class="btn number">7</button>
-        <button class="btn number">8</button>
-        <button class="btn number">9</button>
-        <button class="btn operator">÷</button>
-        <button class="btn number">4</button>
-        <button class="btn number">5</button>
-        <button class="btn number">6</button>
-        <button class="btn operator">x</button>
-        <button class="btn number">1</button>
-        <button class="btn number">2</button>
-        <button class="btn number">3</button>
-        <button class="btn operator">-</button>
-        <button id="point" class="btn">.</button>
-        <button class="btn number">0</button>
-        <button id="equal" class="btn">=</button>
-        <button class="btn operator">+</button>
-      </div>
-    </div>
 
-    <div class="footer">Copyright © 
-      <script>document.writeln(new Date().getFullYear())</script> 
-      Leuchtend
-      <a href="https://github.com/leuchtend5">
-        <i class="fab fa-github"></i>
-      </a>
+      <div class="footer">
+        Copyright ©
+        <script>
+          document.writeln(new Date().getFullYear());
+        </script>
+        Leuchtend
+        <a href="https://github.com/leuchtend5">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>

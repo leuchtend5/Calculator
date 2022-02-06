@@ -1,37 +1,95 @@
 body {
   background-color: #f5f4f4;
   margin: 0;
+  font-size: 20px;
 }
 
 .main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
   gap: 20px;
 }
 
 .container {
+  background-color: #a7a9ab;
   display: flex;
   flex-direction: column;
-  width: 400px;
-  height: 550px;
-  border: 1px solid black;
-  padding: 10px;
+  width: 350px;
+  height: 450px;
+  margin-top: 50px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 15px;
   gap: 10px;
 }
 
 .screen {
-  width: 400px;
-  height: 82px;
-  border: 1px solid black;
+  width: auto;
+  height: 80px;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: #e8eaed;
+  padding: 5px;
 }
 
 .current {
+  display: flex;
   height: 40px;
-  border: 1px solid black;
+  flex-direction: row-reverse;
+  align-items: center;
+  font-size: 30px;
 }
 
 .history {
+  display: flex;
   height: 40px;
-  border: 1px solid black;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.all-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 83px);
+  grid-template-rows: repeat(5, 65px);
+  justify-content: center;
+  gap: 6px;
+}
+
+.clear,
+.delete {
+  grid-column: span 2;
+  border-radius: 4px;
+  font-size: 20px;
+}
+
+.clear {
+  background-color: #bfffd7;
+  border: 2px solid #242424;
+}
+
+.delete {
+  background-color: #fa7583;
+  border: 2px solid #242424;
+}
+
+.btn {
+  border: 2px solid #242424;
+  border-radius: 4px;
+  font-size: 20px;
+}
+
+.footer {
+  margin-bottom: 5px;
+}
+
+.fa-github {
+  color: black;
+  transition: 0.5s;
+}
+
+.fa-github:hover {
+  transform: rotate(360deg);
 }
