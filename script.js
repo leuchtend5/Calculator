@@ -11,16 +11,10 @@ let currentOperation = null;
 let firstNumber = "";
 let secondNumber = "";
 
-clearBtn.addEventListener("click", clearNumber);
+// clearBtn.addEventListener("click", clearNumber);
 deleteBtn.addEventListener("click", deleteNumber);
-equalBtn.addEventListener("click", () => {
-  //for equal button
-  if (currentOperation == null) {
-    return;
-  }
-  execute(equalBtn.textContent);
-});
-pointBtn.addEventListener("click", (e) => pointButton(e));
+equalBtn.addEventListener("click", () => execute(equalBtn.textContent));
+pointBtn.addEventListener("click", pointButton);
 window.addEventListener("keydown", keyboardInput);
 
 numberBtn.forEach((button) => {
@@ -31,7 +25,7 @@ operatorBtn.forEach((button) => {
   button.addEventListener("click", () => setOperation(button.textContent));
 });
 
-function pointButton(e) {
+function pointButton() {
   if (currentScreen.textContent.includes(".")) {
     return;
   } else if (currentScreen.textContent == "") {
@@ -43,11 +37,7 @@ function pointButton(e) {
 
 // collect all the input number
 function addNumber(number) {
-  if (
-    currentOperation == "÷" &&
-    number == "0" &&
-    currentScreen.textContent.length == 0
-  ) {
+  if (currentOperation == "÷" && number == "0") {
     alert("you cannot divide by 0 !");
     number = "";
   } else if (currentScreen.textContent === "0") {
@@ -90,13 +80,10 @@ function keyboardInput(e) {
   }
 }
 
-// set the operator
 function setOperation(operator) {
-  // this is what will happen when user already input the operation before
   if (currentOperation !== null) {
     execute(operator);
   } else if (currentOperation === null) {
-    // when there is no operation, this logic will run
     firstNumber = currentScreen.textContent;
     currentOperation = operator;
     historyScreen.textContent = `${firstNumber} ${currentOperation}`;
@@ -162,13 +149,13 @@ function operate(operator, a, b) {
   return computation;
 }
 
-function clearNumber() {
-  currentScreen.textContent = "0";
-  historyScreen.textContent = "";
-  currentOperation = null;
-  firstNumber = "";
-  secondNumber = "";
-}
+// function clearNumber() {
+//   currentScreen.textContent = "0";
+//   historyScreen.textContent = "";
+//   currentOperation = null;
+//   firstNumber = "";
+//   secondNumber = "";
+// }
 
 function deleteNumber() {
   currentScreen.textContent = currentScreen.textContent.slice(0, -1);
