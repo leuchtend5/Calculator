@@ -11,9 +11,9 @@ let currentOperation = null;
 let firstNumber = "";
 let secondNumber = "";
 
-// clearBtn.addEventListener("click", clearNumber);
+clearBtn.addEventListener("click", clearNumber);
 deleteBtn.addEventListener("click", deleteNumber);
-equalBtn.addEventListener("click", () => execute(equalBtn.textContent));
+equalBtn.addEventListener("click", calculate);
 pointBtn.addEventListener("click", pointButton);
 window.addEventListener("keydown", keyboardInput);
 
@@ -35,12 +35,8 @@ function pointButton() {
   }
 }
 
-// collect all the input number
 function addNumber(number) {
-  if (currentOperation == "÷" && number == "0") {
-    alert("you cannot divide by 0 !");
-    number = "";
-  } else if (currentScreen.textContent === "0") {
+  if (currentScreen.textContent === "0") {
     currentScreen.textContent = "";
   } else if (currentScreen.textContent.length == 12) {
     return;
@@ -67,7 +63,10 @@ function keyboardInput(e) {
       setOperation("÷");
       break;
     case "Enter":
-      execute("=");
+      calculate();
+      break;
+    case "=":
+      calculate();
       break;
     case ".":
       pointButton(".");
@@ -78,6 +77,8 @@ function keyboardInput(e) {
     default:
       return;
   }
+
+  e.target.blur();
 }
 
 function setOperation(operator) {
@@ -93,15 +94,13 @@ function setOperation(operator) {
   }
 }
 
-function execute(operator) {
+function calculate() {
   secondNumber = currentScreen.textContent;
-  if (operator == "=" && currentOperation == null) {
+  if (currentOperation == null) {
     return;
-  } else if (secondNumber == "") {
-    historyScreen.textContent = `${firstNumber} ${operator}`;
-    currentOperation = operator;
-    return;
-  } else if (operator == "=" && secondNumber !== "") {
+  } else if (currentOperation == "÷" && secondNumber == "0") {
+    alert("you cannot divide by 0!");
+  } else if (secondNumber !== "") {
     currentScreen.textContent = parseFloat(
       operate(currentOperation, firstNumber, secondNumber).toFixed(3)
     );
@@ -109,6 +108,15 @@ function execute(operator) {
     currentOperation = null;
     firstNumber = currentScreen.textContent;
     secondNumber = "";
+  }
+}
+
+function execute(operator) {
+  secondNumber = currentScreen.textContent;
+  if (secondNumber == "") {
+    historyScreen.textContent = `${firstNumber} ${operator}`;
+    currentOperation = operator;
+    return;
   } else if (
     historyScreen.textContent.includes("+") || // this logic will calculate the previous operator then show current operator
     historyScreen.textContent.includes("-") || // e.g previous operator +, then user input -, this login will calculate the + first, then show the result with operator -
@@ -149,13 +157,13 @@ function operate(operator, a, b) {
   return computation;
 }
 
-// function clearNumber() {
-//   currentScreen.textContent = "0";
-//   historyScreen.textContent = "";
-//   currentOperation = null;
-//   firstNumber = "";
-//   secondNumber = "";
-// }
+function clearNumber() {
+  currentScreen.textContent = "0";
+  historyScreen.textContent = "";
+  currentOperation = null;
+  firstNumber = "";
+  secondNumber = "";
+}
 
 function deleteNumber() {
   currentScreen.textContent = currentScreen.textContent.slice(0, -1);
